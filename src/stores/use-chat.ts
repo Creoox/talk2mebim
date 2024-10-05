@@ -13,7 +13,7 @@ export const useChatStore = defineStore('chat-store', () => {
     chat.value = response;
 
     if (loadingTriggered.value === false && response?.modelUrls) {
-      console.log({ urls: response.modelUrls });
+      console.log({ urls: response.modelUrls.map((modelUrl) => modelUrl.url) });
       loadingTriggered.value = true;
       await loadModelXKT(
         `xkt`,

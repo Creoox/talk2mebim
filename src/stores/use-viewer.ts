@@ -96,11 +96,39 @@ export const useViewerStore = defineStore('viewer-store', () => {
     viewer.cameraControl.pivotPos = $math.getAABB3Center(aabb, () => tempVec3);
   }
 
+  function getMetaObject(id: string) {
+    if (!viewer) return;
+
+    let result = `These are the properties for the object (${id}):\n`;
+
+    viewer.metaScene.metaObjects[id].propertySets.forEach((pset) => {
+      pset.properties.forEach((p) => {
+        result += `${pset.name}.${p.name}=${p.value}`;
+      });
+    });
+
+    return result;
+  }
+
+  function getAllMetaObjects() {
+    if (!viewer) return;
+
+    let result = 'These are the properties for all objects:\n';
+
+    for (const id in viewer.metaScene.metaObjects) {
+      result += getMetaObject(id);
+    }
+
+    return result;
+  }
+
   return {
     ...toRefs(state),
     getHelpers,
     getLoaders,
     initViewer,
     viewFit,
+    getMetaObject,
+    getAllMetaObjects,
   };
 });
