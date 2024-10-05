@@ -1,6 +1,7 @@
 import { AIMessage, HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { ChatOpenAI } from '@langchain/openai';
 import { v4 as uuid } from 'uuid';
+import getXKTFromUrl from '~/utils/viewer/loaders/get-xkt-from-url';
 
 interface Message {
   id: string;
@@ -12,7 +13,7 @@ interface Message {
 interface Chat {
   id: string;
   llm: ChatOpenAI;
-  modelUrl?: string;
+  modelUrls?: string;
   messages: Message[];
   createdAt: Date;
 }
@@ -28,9 +29,16 @@ class ChatService {
     };
   }
 
-  createOne() {
+  async createOne(xeoUrl: string) {
+    const urls = await getXKTFromUrl(xeoUrl);
+
+    if (!urls) {
+      return;
+    }
+
     const chat: Chat = {
       id: uuid(),
+      modelUrls: urls,
       llm: new ChatOpenAI({
         openAIApiKey: process.env.OPENAI_API_KEY,
       }),
