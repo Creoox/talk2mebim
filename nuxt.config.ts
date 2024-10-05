@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
   srcDir: 'src/',
 
-  modules: ['@primevue/nuxt-module', '@pinia/nuxt', '@nuxtjs/tailwindcss'],
+  modules: ['@vueuse/nuxt', '@primevue/nuxt-module', '@pinia/nuxt', '@nuxtjs/tailwindcss'],
 
   css: ['~/assets/main.scss'],
 
