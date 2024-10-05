@@ -24,4 +24,14 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  vite: {
+    optimizeDeps: {
+      include: ['@xeokit/xeokit-sdk/dist/xeokit-sdk.es.js', '@xeokit/xeokit-sdk/src/index.js'],
+    },
+  },
+
+  build: {
+    transpile: ['trpc-nuxt'],
+  },
 });
