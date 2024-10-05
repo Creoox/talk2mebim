@@ -4,4 +4,13 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   srcDir: 'src/',
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@xeokit/xeokit-sdk/dist/xeokit-sdk.es.js',
+        '@xeokit/xeokit-sdk/src/index.js'
+      ],
+    },
+  }
 })

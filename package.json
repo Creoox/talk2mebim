@@ -2,6 +2,7 @@
   "name": "talk2mebim",
   "private": true,
   "type": "module",
+  "version": "0.0.1",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --host",
@@ -31,6 +32,7 @@
     "prettier-eslint": "^16.3.0",
     "prettier-plugin-astro": "^0.14.1",
     "vite-plugin-eslint": "^1.8.1",
-    "vue-eslint-parser": "^9.4.3"
+    "vue-eslint-parser": "^9.4.3",
+    "@xeokit/xeokit-sdk": "latest"
   }
 }
