@@ -14,6 +14,7 @@ const chat = await $trpc.chats.getOne.query({ id: createdChat.id });
 
 <template>
   <div>
-    {{ chat }}
+    <NuxtRouteAnnouncer />
+    <NuxtPage />
   </div>
 </template>
