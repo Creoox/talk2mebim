@@ -9,6 +9,8 @@ export const useChatStore = defineStore('chat-store', () => {
   async function load(id: string) {
     if (!id) return;
 
+    const viewerStore = useViewerStore();
+
     const response = await $trpc.chat.getOne.query({ id });
     chat.value = response;
 
@@ -19,18 +21,23 @@ export const useChatStore = defineStore('chat-store', () => {
         `xkt`,
         response.modelUrls.map((modelUrl) => modelUrl.url),
       );
+
+      const text = viewerStore.getAllMetaObjects();
+      console.log('getAllMetaObjects', {text});
+
+      await addMessage(text!, 'system');
     }
 
     return response;
   }
 
-  async function addMessage(text: string) {
+  async function addMessage(text: string, who?: 'user' | 'system' | 'ai') {
     if (chat.value === undefined) return;
 
     await $trpc.chat.addMessage.mutate({
       chatId: chat.value.id,
       text,
-      who: 'user',
+      who: who ?? 'user',
     });
   }
 

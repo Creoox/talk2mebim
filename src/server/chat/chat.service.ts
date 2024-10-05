@@ -41,6 +41,7 @@ class ChatService {
       id: uuid(),
       modelUrls: urls,
       llm: new ChatOpenAI({
+        model: 'gpt-4o-mini',
         openAIApiKey: process.env.OPENAI_API_KEY,
       }),
       messages: [],
