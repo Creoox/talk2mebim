@@ -1,5 +1,5 @@
 <template>
-  <Panel :class="who === 'ai' ? 'mr-6' : 'ml-6'">
+  <Panel :class="who === 'ai' ? 'mr-6' : 'ml-6'" v-if="who !== 'system'">
     <template #header>
       {{ props.who }}
     </template>
