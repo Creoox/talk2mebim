@@ -37,6 +37,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "primevue": "^4.0.7",
     "trpc-nuxt": "^0.10.22",
+    "uuid": "^10.0.0",
     "vite-plugin-eslint": "^1.8.1",
     "vue": "latest",
     "vue-eslint-parser": "^9.4.3",
