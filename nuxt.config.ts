@@ -9,7 +9,9 @@ export default defineNuxtConfig({
 
   srcDir: 'src/',
 
-  modules: ['@primevue/nuxt-module'],
+  modules: ['@primevue/nuxt-module', '@pinia/nuxt', '@nuxtjs/tailwindcss'],
+
+  css: ['~/assets/main.scss'],
 
   primevue: {
     options: {

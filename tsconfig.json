@@ -1,4 +1,22 @@
 {
-  // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "importHelpers": false,
+    "verbatimModuleSyntax": false,
+    "allowJs": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": false,
+    "skipDefaultLibCheck": false,
+    "removeComments": true,
+    "strict": true,
+    "strictBindCallApply": false,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
+
+  },
 }
