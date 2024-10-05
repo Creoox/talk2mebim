@@ -5,7 +5,7 @@
   </InputGroup>
 </template>
 <script setup lang="ts">
-const modelInputUrl = ref('https://xeovision.io/project/227c848e-ae98-473a-ab15-a0111fe548db');
+const modelInputUrl = ref('https://xeovision.io/project/60ef6841-8d28-4575-bb6e-c5e88c1ad9ed');
 const { $trpc } = useNuxtApp();
 
 const router = useRouter();
