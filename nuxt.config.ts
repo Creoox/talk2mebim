@@ -9,10 +9,6 @@ export default defineNuxtConfig({
 
   srcDir: 'src/',
 
-  runtimeConfig: {
-    OPENAI_API_KEY: '',
-  },
-
   modules: ['@primevue/nuxt-module'],
 
   primevue: {

@@ -1,9 +1,9 @@
 import z from 'zod';
 import { publicProcedure, router } from '../trpc';
-import chatsService from './chats.service';
+import chatsService from './chat.service';
 
 export const chatsRouter = router({
-  chats: router({
+  chat: router({
     createOne: publicProcedure.mutation(async () => {
       return chatsService.createOne();
     }),
