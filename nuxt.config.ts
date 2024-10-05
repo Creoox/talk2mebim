@@ -13,6 +13,10 @@ export default defineNuxtConfig({
 
   css: ['~/assets/main.scss'],
 
+  devServer: {
+    port: 8080,
+  },
+
   primevue: {
     options: {
       theme: {

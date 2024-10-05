@@ -4,10 +4,12 @@ import chatsService from './chat.service';
 
 export const chatsRouter = router({
   chat: router({
-    createOne: publicProcedure.input(z.object({ xeoUrl: z.string().url() })).mutation(async (opts) => {
-      const { input } = opts;
-      return chatsService.createOne(input.xeoUrl);
-    }),
+    createOne: publicProcedure
+      .input(z.object({ xeoUrl: z.string().url() }))
+      .mutation(async (opts) => {
+        const { input } = opts;
+        return chatsService.createOne(input.xeoUrl);
+      }),
 
     getOne: publicProcedure.input(z.object({ id: z.string().uuid() })).query(async (opts) => {
       const { input } = opts;

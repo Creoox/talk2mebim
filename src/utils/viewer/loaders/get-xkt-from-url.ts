@@ -18,7 +18,7 @@ async function getXKTFromUrl(url) {
 
   // Fetch project data
   try {
-    const apiUrl = `https://xeo.vision/api/projects/${uuid}`;
+    const apiUrl = `https://xeovision.io/api/projects/${uuid}`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
@@ -28,10 +28,10 @@ async function getXKTFromUrl(url) {
     const projectData = await response.json();
 
     // Extract XKT entries from model3dEntries and their model3dOutputs
-    const xktEntries = projectData.model3dEntries.flatMap(entry =>
+    const xktEntries = projectData.model3dEntries.flatMap((entry) =>
       entry.model3dOutputs
-        .filter(output => output.fileType === "xkt")
-        .map(({ fileName, url }) => ({ fileName, url }))
+        .filter((output) => output.fileType === 'xkt')
+        .map(({ fileName, url }) => ({ fileName, url })),
     );
 
     if (xktEntries.length === 0) {

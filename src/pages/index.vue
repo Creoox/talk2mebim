@@ -1,10 +1,3 @@
-<script setup lang="ts">
-const { $trpc } = useNuxtApp();
-
-const createdChat = await $trpc.chat.createOne.mutate();
-console.log(createdChat);
-</script>
-
 <template>
   <div>
     <Logo />

@@ -5,18 +5,13 @@
   </InputGroup>
 </template>
 <script setup lang="ts">
-const modelInputUrl = ref('https://xeo.vision/project/7ec7c376-dfd2-40a5-8a9f-88a0f84025ae');
+const modelInputUrl = ref('https://xeovision.io/project/227c848e-ae98-473a-ab15-a0111fe548db');
 const { $trpc } = useNuxtApp();
 
 const router = useRouter();
 
-const openUrl = async() => {
-  console.log('openUrl', { url: modelInputUrl });
-
+const openUrl = async () => {
   const response = await $trpc.chat.createOne.mutate({ xeoUrl: modelInputUrl.value });
-
-
-  //router.push( { name: 'view', params: { id: response?.id }});
   router.push(`/view/${response?.id}`);
 };
 </script>

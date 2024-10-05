@@ -1,5 +1,5 @@
 <template>
-  <Panel>
+  <Panel :class="who === 'ai' ? 'mr-6' : 'ml-6'">
     <template #header>
       {{ props.who }}
     </template>

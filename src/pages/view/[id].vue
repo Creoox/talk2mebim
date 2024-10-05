@@ -19,7 +19,7 @@ const route = useRoute();
 
 const { resume, pause } = useIntervalFn(() => {
   chatStore.load(route.params.id as string);
-}, 1000);
+}, 300);
 
 onMounted(() => {
   chatStore.load(route.params.id as string);

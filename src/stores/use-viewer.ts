@@ -1,20 +1,10 @@
-import type { TreeViewPlugin, Viewer } from '@xeokit/xeokit-sdk';
-
-import { loadModelXKT } from '~/utils/viewer/loaders';
-
 export type ViewerStoreState = {
   isLoading: boolean;
   isInitialized: boolean;
 };
 
 export const useViewerStore = defineStore('viewer-store', () => {
-  const {
-    $FastNavPlugin,
-    $NavCubePlugin,
-    $Viewer,
-    $math,
-    $XKTLoaderPlugin
-  } = useNuxtApp();
+  const { $FastNavPlugin, $NavCubePlugin, $Viewer, $math, $XKTLoaderPlugin } = useNuxtApp();
 
   const tempVec3 = ($math as any).vec3();
   let viewer: InstanceType<typeof $Viewer> | undefined;
@@ -43,8 +33,6 @@ export const useViewerStore = defineStore('viewer-store', () => {
   }
 
   function initViewer() {
-    const route = useRoute();
-
     viewer = new $Viewer({
       canvasId: 'xeokit-canvas',
       transparent: true,
@@ -100,19 +88,11 @@ export const useViewerStore = defineStore('viewer-store', () => {
     viewer.cameraControl.pivotPos = $math.getAABB3Center(aabb, () => tempVec3);
   }
 
-  async function loadModelFromXeovisionURL(url: string) {
-    console.log('loadModelFromXeovisionURL', { url });
-    const xktSources: any[] = [url];
-
-    await loadModelXKT(`xkt`, xktSources);
-  }
-
   return {
     ...toRefs(state),
     getHelpers,
     getLoaders,
     initViewer,
     viewFit,
-    loadModelFromXeovisionURL,
   };
 });

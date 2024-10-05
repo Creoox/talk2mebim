@@ -13,7 +13,7 @@ interface Message {
 interface Chat {
   id: string;
   llm: ChatOpenAI;
-  modelUrls?: string;
+  modelUrls?: { fileName: string; url: string }[];
   messages: Message[];
   createdAt: Date;
 }
@@ -25,6 +25,7 @@ class ChatService {
     return {
       id: chat.id,
       messages: chat.messages,
+      modelUrls: chat.modelUrls,
       createdAt: chat.createdAt,
     };
   }
