@@ -1,3 +1,5 @@
+import { DataSourceXKT } from "~/utils/viewer/loaders/data-sources/data-source-xkt";
+
 export type ViewerStoreState = {
   isLoading: boolean;
   isInitialized: boolean;
@@ -44,6 +46,12 @@ export const useViewerStore = defineStore('viewer-store', () => {
     viewer.cameraControl.followPointer = true;
 
     xktLoaderPlugin = new $XKTLoaderPlugin(viewer);
+
+    xktLoaderPlugin = new $XKTLoaderPlugin(viewer, {
+      dataSource: new DataSourceXKT({
+        cacheBuster: false,
+      }),
+    });
 
     // TODO: Set to true when you need to load multiple instances of the same model
     xktLoaderPlugin.globalizeObjectIds = true;
