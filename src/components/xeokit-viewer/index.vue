@@ -1,5 +1,5 @@
 <template>
-  <canvas id="xeokit-canvas" class="w-screen h-screen"></canvas>
+  <canvas id="xeokit-canvas" class="w-full h-full"></canvas>
 </template>
 
 <script setup lang="ts">
