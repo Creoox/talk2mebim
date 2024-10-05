@@ -12,14 +12,11 @@
   "dependencies": {
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.7.0",
-
     "@langchain/community": "^0.3.4",
     "@langchain/core": "^0.3.7",
     "@langchain/openai": "^0.3.5",
-
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "latest",
-
     "@primevue/themes": "^4.0.7",
     "@trpc/client": "10.45.2",
     "@trpc/server": "10.45.2",
@@ -27,6 +24,8 @@
     "@typescript-eslint/parser": "^7.16.1",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
+    "@vueuse/core": "^11.1.0",
+    "@vueuse/nuxt": "^11.1.0",
     "@xeokit/xeokit-sdk": "^2.6.46",
     "astro-eslint-parser": "^1.0.2",
     "eslint": "^9.7.0",
