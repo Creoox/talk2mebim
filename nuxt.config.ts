@@ -13,7 +13,9 @@ export default defineNuxtConfig({
     OPENAI_API_KEY: '',
   },
 
-  modules: ['@primevue/nuxt-module'],
+  modules: ['@primevue/nuxt-module', '@pinia/nuxt', '@nuxtjs/tailwindcss'],
+
+  css: ['~/assets/main.scss'],
 
   primevue: {
     options: {
