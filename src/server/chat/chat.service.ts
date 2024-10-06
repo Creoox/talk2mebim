@@ -3,6 +3,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import fs from 'fs';
 import { v4 as uuid } from 'uuid';
 import getXKTFromUrl from '~/utils/viewer/loaders/get-xkt-from-url';
+import storeService from '../store/store.service';
 
 interface Message {
   id: string;
@@ -69,12 +70,14 @@ class ChatService {
     return this.filterChat(chat);
   }
 
-  addMessage(chatId: string, text: string, who: Message['who']) {
+  async addMessage(chatId: string, text: string, who: Message['who']) {
     const chat = this.chats.find((chat) => chat.id === chatId);
 
     if (!chat) {
       return;
     }
+
+    const metas = await storeService.findMeta(chatId, text);
 
     const message: Message = {
       id: uuid(),
