@@ -2,8 +2,9 @@ import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { createNuxtApiHandler } from 'trpc-nuxt';
 import { chatsRouter } from '../chat/chat.router';
 import { mergeRouters } from '../trpc';
+import { storeRouter } from '../store/store.router';
 
-const appRouter = mergeRouters(chatsRouter);
+const appRouter = mergeRouters(chatsRouter, storeRouter);
 
 export type AppRouter = typeof appRouter;
 export type AppRouterInput = inferRouterInputs<AppRouter>;

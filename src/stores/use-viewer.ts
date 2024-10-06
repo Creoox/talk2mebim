@@ -1,4 +1,7 @@
+import { AppRouter, AppRouterOutput } from "~/server/api/[trpc]";
 import { DataSourceXKT } from "~/utils/viewer/loaders/data-sources/data-source-xkt";
+
+import { type MetaObject } from "~/server/store/store.service";
 
 export type ViewerStoreState = {
   isLoading: boolean;
@@ -37,6 +40,8 @@ export const useViewerStore = defineStore('viewer-store', () => {
   function initViewer() {
     viewer = new $Viewer({
       canvasId: 'xeokit-canvas',
+      // @ts-ignore xeokit
+      readableGeometryEnabled: true,
       transparent: true,
       dtxEnabled: true,
       saoEnabled: true,
@@ -54,7 +59,7 @@ export const useViewerStore = defineStore('viewer-store', () => {
     });
 
     // TODO: Set to true when you need to load multiple instances of the same model
-    xktLoaderPlugin.globalizeObjectIds = true;
+    xktLoaderPlugin.globalizeObjectIds = false;
 
     navCubePlugin = new $NavCubePlugin(viewer, {
       canvasId: 'xeokit-canvas-cube',
@@ -96,30 +101,76 @@ export const useViewerStore = defineStore('viewer-store', () => {
     viewer.cameraControl.pivotPos = $math.getAABB3Center(aabb, () => tempVec3);
   }
 
-  function getMetaObject(id: string) {
-    if (!viewer) return;
+  function getMetaObject(id: string): MetaObject | null {
+    if (!viewer) return null;
 
-    let result = `These are the properties for the object (${id}):\n`;
+
+
+    // @ts-ignore xeokit
+    const metaObjectJson = viewer.metaScene.metaObjects[id].getJSON();
+    //console.log({metaObjectJson});
+
+
 
     viewer.metaScene.metaObjects[id].propertySets.forEach((pset) => {
       pset.properties.forEach((p) => {
-        result += `${pset.name}.${p.name}=${p.value}`;
+        //console.log({p});
+
+        if (!metaObjectJson.propertSets) {
+          metaObjectJson.propertySets = {};
+        }
+
+        metaObjectJson.propertySets[p.name] = p.value;
+
+        const entity = viewer?.scene.objects[id];
+
+        if (entity) {
+          // @ts-ignore xeokit
+          metaObjectJson.surface = entity.surfaceArea?.toFixed(3) ?? 0;
+          // @ts-ignore xeokit
+          console.log(entity.surfaceArea);
+          // @ts-ignore xeokit
+          metaObjectJson.volume = entity.volume?.toFixed(3) ?? 0;
+
+          console.log('Entity found!');
+        } else {
+          console.log('Entity not found!');
+        }
       });
     });
 
-    return result;
+    return {
+      id: metaObjectJson.id,
+      type: metaObjectJson.type,
+      name: metaObjectJson.name,
+      parent: metaObjectJson.parent ?? null,
+      data: JSON.stringify(metaObjectJson),
+    };
   }
 
   function getAllMetaObjects() {
     if (!viewer) return;
 
-    let result = 'These are the properties for all objects:\n';
+    //let result = 'These are the properties for all objects:\n';
+
+
+
+    const allMetaObjects: MetaObject[] = [];
 
     for (const id in viewer.metaScene.metaObjects) {
-      result += getMetaObject(id);
+      const metaObject = getMetaObject(id);
+      if (!metaObject) continue;
+
+      allMetaObjects.push(metaObject);
     }
 
-    return result;
+    const { $trpc } = useNuxtApp();
+    const chatStore = useChatStore();
+
+    if (!chatStore.chat) return;
+    $trpc.store.storeMeta.mutate({ chatId: chatStore.chat?.id, metaObjects: allMetaObjects });
+
+    //return result;
   }
 
   return {
