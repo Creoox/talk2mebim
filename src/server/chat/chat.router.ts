@@ -17,7 +17,13 @@ export const chatsRouter = router({
     }),
 
     addMessage: publicProcedure
-      .input(z.object({ chatId: z.string().uuid(), text: z.string(), who: z.union([ z.literal('user'), z.literal('system'), z.literal('ai')]) }))
+      .input(
+        z.object({
+          chatId: z.string().uuid(),
+          text: z.string(),
+          who: z.union([z.literal('user'), z.literal('system'), z.literal('ai')]),
+        }),
+      )
       .mutation(async (opts) => {
         const { input } = opts;
         chatsService.addMessage(input.chatId, input.text, input.who);
