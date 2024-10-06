@@ -35,7 +35,7 @@ function scrollToBottom() {
 watch(
   () => chatStore.chat?.messages,
   () => {
-    scrollToBottom();
+    //scrollToBottom();
   },
 );
 </script>
