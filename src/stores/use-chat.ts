@@ -22,7 +22,7 @@ export const useChatStore = defineStore('chat-store', () => {
         response.modelUrls.map((modelUrl) => modelUrl.url),
       );
 
-      viewerStore.getAllMetaObjects();
+      //viewerStore.getAllMetaObjects();
 
       //console.log('getAllMetaObjects', {text});
 

@@ -104,17 +104,13 @@ export const useViewerStore = defineStore('viewer-store', () => {
   function getMetaObject(id: string): MetaObject | null {
     if (!viewer) return null;
 
-
-
     // @ts-ignore xeokit
     const metaObjectJson = viewer.metaScene.metaObjects[id].getJSON();
     //console.log({metaObjectJson});
 
-
-
     viewer.metaScene.metaObjects[id].propertySets.forEach((pset) => {
       pset.properties.forEach((p) => {
-        //console.log({p});
+
 
         if (!metaObjectJson.propertSets) {
           metaObjectJson.propertySets = {};
@@ -123,6 +119,7 @@ export const useViewerStore = defineStore('viewer-store', () => {
         metaObjectJson.propertySets[p.name] = p.value;
 
         const entity = viewer?.scene.objects[id];
+        console.log({p, entity});
 
         if (entity) {
           // @ts-ignore xeokit

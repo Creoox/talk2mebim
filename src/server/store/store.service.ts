@@ -88,14 +88,16 @@ class StoreService {
     const indexed = collectionsResult.collections.find(
       (collection) => collection.name === collectionName,
     );
-    if (indexed) return;
+    if (!indexed) return;
 
     const [embedding] = await this.embeddings.embedDocuments([query]);
 
     const result = await qdrant.search(collectionName, {
       vector: embedding,
-      limit: 3,
+      //limit: 3,
     });
+
+    console.log({result});
 
     return result;
   }

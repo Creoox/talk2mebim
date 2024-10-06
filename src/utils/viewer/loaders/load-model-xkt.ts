@@ -50,6 +50,8 @@ export async function loadModelXKT(
         worldNormalMatrix: sceneModel.worldNormalMatrix,
       });
 
+      viewerStore.getAllMetaObjects();
+
       if (viewer) {
         const sceneAABB = viewer.scene.getAABB(viewer.scene.visibleObjectIds);
         viewer.cameraFlight.jumpTo({ aabb: sceneAABB });
