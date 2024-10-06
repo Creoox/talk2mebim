@@ -18,6 +18,7 @@
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "latest",
     "@primevue/themes": "^4.0.7",
+    "@qdrant/js-client-rest": "^1.11.0",
     "@trpc/client": "10.45.2",
     "@trpc/server": "10.45.2",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
