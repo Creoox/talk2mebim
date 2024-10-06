@@ -22,10 +22,11 @@ export const useChatStore = defineStore('chat-store', () => {
         response.modelUrls.map((modelUrl) => modelUrl.url),
       );
 
-      const text = viewerStore.getAllMetaObjects();
-      console.log('getAllMetaObjects', {text});
+      //viewerStore.getAllMetaObjects();
 
-      await addMessage(text!, 'system');
+      //console.log('getAllMetaObjects', {text});
+
+      //await addMessage(text!, 'system');
     }
 
     return response;

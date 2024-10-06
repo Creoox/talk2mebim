@@ -3,6 +3,7 @@ import { createNuxtApiHandler } from 'trpc-nuxt';
 import { chatsRouter } from '../chat/chat.router';
 import { storeRouter } from '../store/store.router';
 import { mergeRouters } from '../trpc';
+import { storeRouter } from '../store/store.router';
 
 const appRouter = mergeRouters(chatsRouter, storeRouter);
 
