@@ -1,5 +1,6 @@
 import { AIMessage, HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { ChatOpenAI } from '@langchain/openai';
+import fs from 'fs';
 import { v4 as uuid } from 'uuid';
 import getXKTFromUrl from '~/utils/viewer/loaders/get-xkt-from-url';
 
@@ -12,7 +13,7 @@ interface Message {
 
 interface Chat {
   id: string;
-  llm: ChatOpenAI;
+  llm?: ChatOpenAI;
   modelUrls?: { fileName: string; url: string }[];
   messages: Message[];
   createdAt: Date;
@@ -20,6 +21,12 @@ interface Chat {
 
 class ChatService {
   chats: Chat[] = [];
+
+  constructor() {
+    if (fs.existsSync('chats.json')) {
+      this.chats = JSON.parse(fs.readFileSync('chats.json', 'utf-8'));
+    }
+  }
 
   filterChat(chat: Chat) {
     return {
@@ -40,15 +47,14 @@ class ChatService {
     const chat: Chat = {
       id: uuid(),
       modelUrls: urls,
-      llm: new ChatOpenAI({
-        model: 'gpt-4o-mini',
-        openAIApiKey: process.env.OPENAI_API_KEY,
-      }),
+
       messages: [],
       createdAt: new Date(),
     };
 
     this.chats.push(chat);
+
+    fs.writeFileSync('chats.json', JSON.stringify(this.chats, null, 2));
 
     return chat;
   }
@@ -111,6 +117,13 @@ class ChatService {
         return new HumanMessage(message.text);
       }
     });
+
+    if (!chat.llm) {
+      chat.llm = new ChatOpenAI({
+        model: 'gpt-4o-mini',
+        openAIApiKey: process.env.OPENAI_API_KEY,
+      });
+    }
 
     const response = await chat.llm.invoke(llmMessages);
     const aiMessage = response.content.toString();
