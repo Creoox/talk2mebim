@@ -60,58 +60,58 @@ export async function loadModelXKT(
 
 
         const canvas = window.document.getElementById("xeokit-canvas");
-        if (canvas) {
-          canvas.addEventListener("mousemove", (function() {
-            const px = v => v + "px";
+        // if (canvas) {
+        //   canvas.addEventListener("mousemove", (function() {
+        //     const px = v => v + "px";
 
-            const metricsDiv = document.createElement("div");
-            document.body.appendChild(metricsDiv);
-            metricsDiv.style.position = "absolute";
-            metricsDiv.style.color = "black";
-            metricsDiv.style.background = "white";
-            metricsDiv.style.borderRadius = "5px";
-            metricsDiv.style.padding = "5px 10px";
-            metricsDiv.style.pointerEvents = "none";
+        //     const metricsDiv = document.createElement("div");
+        //     document.body.appendChild(metricsDiv);
+        //     metricsDiv.style.position = "absolute";
+        //     metricsDiv.style.color = "black";
+        //     metricsDiv.style.background = "white";
+        //     metricsDiv.style.borderRadius = "5px";
+        //     metricsDiv.style.padding = "5px 10px";
+        //     metricsDiv.style.pointerEvents = "none";
 
-            let highlighted = null;
+        //     let highlighted = null;
 
-            return function(event) {
-                const rect = canvas.getBoundingClientRect();
-                const canvasPos = [ event.clientX - rect.left, event.clientY - rect.top ];
-                const pickRecord = viewer.scene.pick({ canvasPos: canvasPos });
+        //     return function(event) {
+        //         const rect = canvas.getBoundingClientRect();
+        //         const canvasPos = [ event.clientX - rect.left, event.clientY - rect.top ];
+        //         const pickRecord = viewer.scene.pick({ canvasPos: canvasPos });
 
 
-                const pickEntity = pickRecord && pickRecord.entity && pickRecord.entity.model && pickRecord.entity;
+        //         const pickEntity = pickRecord && pickRecord.entity && pickRecord.entity.model && pickRecord.entity;
 
-                if (highlighted && (highlighted !== pickEntity))
-                {
-                    highlighted.highlighted = false;
-                    highlighted = null;
-                }
+        //         if (highlighted && (highlighted !== pickEntity))
+        //         {
+        //             highlighted.highlighted = false;
+        //             highlighted = null;
+        //         }
 
-                if (pickEntity)
-                {
-                    if (! highlighted)
-                    {
-                        highlighted = pickEntity;
-                        highlighted.highlighted = true;
+        //         if (pickEntity)
+        //         {
+        //             if (! highlighted)
+        //             {
+        //                 highlighted = pickEntity;
+        //                 highlighted.highlighted = true;
 
-                        try {
-                            metricsDiv.innerHTML = `pickEntity.id = ${pickEntity.id}<br />pickEntity.volume = ${highlighted.volume.toFixed(3)} [u³]`;
-                        } catch (e) {
-                            metricsDiv.innerHTML = e.toString();
-                            console.error(e);
-                        }
-                    }
+        //                 try {
+        //                     metricsDiv.innerHTML = `pickEntity.id = ${pickEntity.id}<br />pickEntity.volume = ${highlighted.volume.toFixed(3)} [u³]`;
+        //                 } catch (e) {
+        //                     metricsDiv.innerHTML = e.toString();
+        //                     console.error(e);
+        //                 }
+        //             }
 
-                    metricsDiv.style.left = px(canvasPos[0] + 20);
-                    metricsDiv.style.top  = px(canvasPos[1] - 100);
-                }
+        //             metricsDiv.style.left = px(canvasPos[0] + 20);
+        //             metricsDiv.style.top  = px(canvasPos[1] - 100);
+        //         }
 
-                metricsDiv.style.display = highlighted ? "" : "none";
-            }
-        })());
-        }
+        //         metricsDiv.style.display = highlighted ? "" : "none";
+        //     }
+        // })());
+        // }
 
       }
 

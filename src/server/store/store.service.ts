@@ -94,7 +94,7 @@ class StoreService {
 
     const result = await qdrant.search(collectionName, {
       vector: embedding,
-      //limit: 3,
+      limit: 100,
     });
 
     console.log({result});

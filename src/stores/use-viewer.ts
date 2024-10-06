@@ -127,7 +127,10 @@ export const useViewerStore = defineStore('viewer-store', () => {
           // @ts-ignore xeokit
           console.log(entity.surfaceArea);
           // @ts-ignore xeokit
-          metaObjectJson.volume = entity.volume?.toFixed(3) ?? 0;
+          const volume = entity.volume?.toFixed(3) ?? 0;
+          if (volume > 0) {
+            metaObjectJson.volume = volume;
+          }
 
           console.log('Entity found!');
         } else {
