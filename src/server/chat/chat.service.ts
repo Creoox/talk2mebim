@@ -79,26 +79,6 @@ class ChatService {
 
     const metas = await storeService.findMeta(chatId, text);
 
-    const systemMessageId = uuid();
-
-    if (metas) {
-      let result = `# Additional data:\n`;
-
-      for (const meta of metas) {
-        result += `${meta.payload?.data}`;
-      }
-
-
-      const systemMessage: Message = {
-        id: systemMessageId,
-        who: 'system',
-        createdAt: new Date(),
-        text: result
-      };
-
-      chat.messages.push(systemMessage);
-    }
-
     const message: Message = {
       id: uuid(),
       text,
@@ -107,17 +87,7 @@ class ChatService {
     };
 
     chat.messages.push(message);
-    await this.chatLLM(chat);
-
-    const systemMessageIndex = chat.messages.findIndex(message => message.id === systemMessageId);
-
-    if (systemMessageIndex >= 0) {
-      console.log('Removing ', { systemMessageId });
-      //delete chat.messages[systemMessageIndex];
-      chat.messages.splice(systemMessageIndex, 1);
-
-      console.log('Messages', { messages: chat.messages});
-    }
+    this.chatLLM(chat);
   }
 
   deleteMessage(chatId: string, messageId: string) {
