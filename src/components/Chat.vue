@@ -16,6 +16,14 @@
   </div>
 </template>
 
+<style scoped>
+.p-button {
+  background-color: #6e12ff;
+  color: white;
+  border: none;
+}
+</style>
+
 <script setup lang="ts">
 const chatStore = useChatStore();
 const text = ref('');
